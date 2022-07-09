@@ -2,8 +2,9 @@
 // Difinde random number from 1-20 by using math random and I use math.trunc to remove decimal number
 const secretNumber = Math.trunc(Math.random() * 20 + 1);
 // define message
-const message = document.querySelector(".message");
-
+const displayMessage = function (message) {
+  document.querySelector(".message").textContent = message;
+};
 // select check btn
 const check = document.querySelector(".check");
 // select the score value
@@ -16,9 +17,9 @@ check.addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
   // the condition
   if (!guess) {
-    message.textContent = "There is no Number !";
+    displayMessage("There is no Number !");
   } else if (guess == secretNumber) {
-    message.textContent = "Currect Number !";
+    displayMessage("Currect Number !");
     // assign the number value to the secret number
     document.querySelector(".number").textContent = secretNumber;
     // vhange the body color
@@ -29,12 +30,13 @@ check.addEventListener("click", function () {
     }
   } else if (guess !== secretNumber) {
     if (score > 1) {
-      message.textContent = guess > secretNumber ? "Too high!" : "Too low!";
+      document.querySelector(".message").textContent =
+        guess > secretNumber ? "Too high!" : "Too low!";
       score--;
       document.querySelector(".score").textContent = score;
     }
   } else {
-    message.textContent = "You Lost the game!";
+    displayMessage("You Lost the game!");
     document.querySelector(".score").textContent = 0;
     document.body.style.backgroundColor = "#D90416";
   }
@@ -44,7 +46,7 @@ const again = document.querySelector(".again");
 again.addEventListener("click", function () {
   document.querySelector(".number").textContent = "?";
   document.body.style.backgroundColor = "#222";
-  message.textContent = "Start guessing...";
+  displayMessage("Start guessing...");
   const guess = document.querySelector(".guess");
   guess.value = "";
   score = 20;
